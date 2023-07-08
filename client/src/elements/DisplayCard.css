@@ -1,0 +1,26 @@
+.dispContainer {
+  --color: hsl(var(--secondary-color), var(--l));
+  background-color: var(--color);
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  padding: 25px
+}
+
+img {
+  background-repeat: no-repeat;
+  max-width: 100%;
+  max-height: 100%;
+  width: 150px;
+  border-radius: 10px;
+}
+
+h4 {
+  margin: 10px;
+}
+
+select {
+  display: flex;
+  margin-left: 10px;
+}
