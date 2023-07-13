@@ -3,38 +3,45 @@ import axios from "axios";
 import styles from './DisplayCard.css'
 
 const DisplayCard = () => {
+  const [cardData, setCardData] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
 
-  const card = () => {
-    fetch('/random-card')
-      .then(response => response.json())
-      .then(data => {
-        console.log(data);
-      })
-      .catch(error => {
-        console.error(error);
-      });
+  const [FirstName, Profession, _State] = cardData[0]
+
+  // const fetchDispCard = () => {
+  //   axios.get(`/disp-card/data`)
+  //     .then(response => {
+  //       const data = response.data;
+  //       setCardData(data);
+  //     })
+  //     .catch(error => {
+  //       console.error('Error retrieving data:', error);
+  //     });
+  // };
+
+  // useEffect(() => {
+  //   fetchDispCard();
+  // }, [])
+
+
+
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen)
   }
-  
 
-
-const [isOpen, setIsOpen] = useState(false)
-
-const toggleDropdown = () => {
-  setIsOpen(!isOpen)
-}
-
-return (
-  <div className='dispContainer' onClick={toggleDropdown}>
-    <h4>{card.FirstName}</h4>
-    <img src="https://iso.500px.com/wp-content/uploads/2015/03/business_cover.jpeg" />
-    {isOpen && (
-      <div className='dropdown'>
-        <p>Profession:{card.Profession} </p>
-        <p>State: {card._State}</p>
-      </div>
-    )}
-  </div>
-);
+  return (
+    <div className='dispContainer' onClick={toggleDropdown}>
+      <h4>{FirstName}</h4>
+      <img src="https://iso.500px.com/wp-content/uploads/2015/03/business_cover.jpeg" />
+      {isOpen && (
+        <div className='dropdown'>
+          <p>Profession:{Profession} </p>
+          <p>State: {_State}</p>
+          <button>View Profile</button>
+        </div>
+      )}
+    </div>
+  );
 };
 
 export default DisplayCard

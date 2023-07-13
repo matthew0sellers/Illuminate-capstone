@@ -13,16 +13,25 @@ const Filter = () => {
   const handleStateChange = (event) => {
     const selectedState = event.target.value;
     setState(selectedState);
+    console.log(selectedState)
   };
 
   const handleProfChange = (event) => {
     const selectedProf = event.target.value;
     setProf(selectedProf);
+    console.log(selectedProf)
   };
 
-  
-
-
+  // const fetchDataByState = () => {
+  //   axios.get(`/disp/${state}`)
+  //     .then(response => {
+  //       const filteredData = response.data;
+  //       console.log(filteredData);
+  //     })
+  //     .catch(error => {
+  //       console.error('Error retrieving data:', error);
+  //     });
+  // };
 
   return (
     <div className='searchCont'>

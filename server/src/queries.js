@@ -8,64 +8,6 @@ const pool = new Pool({
   port: 5432,
 });
 
-const getCard = (request, response) => {
-  pool.query(
-    "SELECT * FROM dispCard ORDER BY RANDOM() LIMIT 1",
-    (error, results) => {
-      if (error) {
-        throw error;
-      }
-      const randomCard = results.rows[0];
-      response.json(randomCard);
-    }
-  );
-};
-
-const getDispCard = (request, response) => {
-  
-  pool.query("SELECT * FROM dispCard", (error, results) => {
-    if (error) {
-      throw error;
-    }
-    response.status(200).json(results.rows);
-  });
-};
-
-const getUserById = (request, response) => {
-  const id = parseInt(request.params.id);
-
-  pool.query("SELECT * FROM users WHERE id = $1", [id], (error, results) => {
-    if (error) {
-      throw error;
-    }
-    response.status(200).json(results.rows);
-  });
-};
-
-const getUserByEmail = (request, response) => {
-  const Email = parseInt(request.params.Email);
-
-  pool.query("SELECT * FROM users WHERE email = $1", [Email], (error, results) => {
-    if (error) {
-      throw error;
-    }
-    response.status(200).json(results.rows);
-  });
-};
-
-const getUserByState = (request, response) => {
-  const state = parseInt(request.params.state);
-
-  pool.query("SELECT * FROM dispCard WHERE _State = $1", [state], (error, results) => {
-    if (error) {
-      throw error;
-    }
-    response.status(200).json(results.rows);
-  });
-};
-
-
-
 const addDispCard = (request, response) => {
   const { firstname, profession, contact, email, state } = request.body;
 
@@ -81,28 +23,91 @@ const addDispCard = (request, response) => {
   );
 };
 
-
-
-const deleteDispCard = (request, response) => {
-  const cardId = parseInt(request.params.id);
+const addUser = (request, response) => {
+  const { email, password, firstname, lastname } = request.body;
 
   pool.query(
-    'DELETE FROM dispCard WHERE id = $1',
-    [cardId],
+    'INSERT INTO dispCard (email, password, firstname, lastname) VALUES ($1, $2, $3, $4, $5)',
+    [email, password, firstname, lastname],
     (error, results) => {
       if (error) {
         throw error;
       }
-      response.status(200).send(`DispCard with ID ${cardId} deleted successfully`);
+      response.status(201).send('User added successfully');
     }
   );
 };
 
+const getDispCard = (request, response) => {
+
+  pool.query("SELECT firstname, profession, _state FROM dispCard ORDER BY RANDOM() LIMIT 1", (error, results) => {
+    if (error) {
+      throw error;
+    }
+    response.status(200).json(results.rows);
+  });
+};
+
+// const getUserById = (request, response) => {
+//   const id = parseInt(request.params.id);
+
+//   pool.query("SELECT * FROM users WHERE id = $1", [id], (error, results) => {
+//     if (error) {
+//       throw error;
+//     }
+//     response.status(200).json(results.rows);
+//   });
+// };
+
+// const getUserByEmail = (request, response) => {
+//   const Email = parseInt(request.params.Email);
+
+//   pool.query("SELECT * FROM users WHERE email = $1", [Email], (error, results) => {
+//     if (error) {
+//       throw error;
+//     }
+//     response.status(200).json(results.rows);
+//   });
+// };
+
+// const getUserByState = (request, response) => {
+//   const state = parseInt(request.params.state);
+
+//   pool.query("SELECT * FROM dispCard WHERE _State = $1", [state], (error, results) => {
+//     if (error) {
+//       throw error;
+//     }
+//     response.status(200).json(results.rows);
+//   });
+// };
+
+
+
+
+
+
+// const deleteDispCard = (request, response) => {
+//   const cardId = parseInt(request.params.id);
+
+//   pool.query(
+//     'DELETE FROM dispCard WHERE id = $1',
+//     [cardId],
+//     (error, results) => {
+//       if (error) {
+//         throw error;
+//       }
+//       response.status(200).send(`DispCard with ID ${cardId} deleted successfully`);
+//     }
+//   );
+// };
+
 module.exports = {
   addDispCard,
-  deleteDispCard,
-  getUserById,
-  getUserByState,
-  getCard,
   getDispCard,
+  addUser,
+  // getUserByState,
+  // getUserByEmail,
+  // deleteDispCard,
+  // getUserById,
+  // getCard,
 };

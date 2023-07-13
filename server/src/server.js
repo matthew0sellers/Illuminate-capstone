@@ -15,19 +15,19 @@ app.get('/', (request, response) => {
   response.json({ info: 'Node.js, Express, and Postgres API' })
 })
 
-app.get('/users/:id', db.getUserById)
+// app.get('/users/:id', db.getUserById)
 
-app.get('/disp/:_State', db.getUserByState)
+// app.get('/disp/:state', db.getUserByState)
 
-app.get('/disp/:_State', db.getUserByEmail)
-     
-app.get('/random-card', db.getCard)
+// app.get('/disp/:email', db.getUserByEmail)
 
-app.get('/disp-card', db.getDispCard)
+// app.get('/disp-card', db.getDispCard)
 
-app.post('/disp-card', db.addDispCard);
+app.post('/disp-card-n', db.addDispCard);
 
-app.delete('/disp-card/:id', db.deleteDispCard);
+app.post('/user-sign-up', db.addDispCard);
+
+// app.delete('/disp-card/:id', db.deleteDispCard);
 
 
 app.listen(port, () => {

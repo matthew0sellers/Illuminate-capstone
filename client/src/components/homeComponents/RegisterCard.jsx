@@ -1,34 +1,68 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { response } from 'express';
 
 
 const SignUpCard = () => {
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [isSignedIn, setIsSignedIn] = useState(false)
 
-    const handleSubmit = (event) => {
-        setPass(event.target.value);
-        setEmail(event.target.value);
-        event.preventDefault();
+    const handleSubmit = (e) => {
+        const newUser = {
+            email,
+            pass,
+            firstName,
+            lastName,
+        }
 
-        console.log('Email:', email);
-        console.log('Password:', pass);
-        setEmail('');
-        setPass('');
+        axios.post('/user-sign-up', newUser)
+            .then(response => {
+                console.log(response.data);
+            })
 
+        const toggleSignIn = (e) => {
+            setIsSignedIn(!isSignedIn)
+        }
 
+        toggleSignIn()
     }
 
+    const clearSubmit = (e) => {
+        const toggleSignIn = (e) => {
+            setIsSignedIn(!isSignedIn)
+
+            setEmail('');
+            setPass('');
+            setFirstName('');
+            setLastName('');
+        }
+
+        toggleSignIn()
+    }
 
     return (
         <div className='seperate'>
-            <p>Create an account with us to get a real Illuminate experience</p>
-            <p>Enter your prefered email</p>
+            <p>Sign in, or create an account with us to get a real Illuminate experience</p>
+            {!isSignedIn && (
+                <div>
+                    <input type="text" placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)} />
+                    <input type="text" placeholder='Password' value={pass} onChange={(e) => setPass(e.target.value)} />
+                    <input type="text" placeholder='First Name' value={firstName} onChange={(e) => setFirstName(e.target.value)} />
+                    <input type="text" placeholder='Last Name' value={lastName} onChange={(e) => setLastName(e.target.value)} />
 
-            <input type="email" placeholder='Email' value={email} />
-            <input type="password" placeholder='Password' value={pass} />
+                    <button onClick={handleSubmit} className='sign-up-btn'>Sign in</button>
+                </div>
+            )}
 
-            <button onClick={handleSubmit} className='sign-up-btn'>Sign up</button>
+            {isSignedIn && (
+                <div>
+                    <p>Welcome to Illuminate {firstName}</p>
+                    <button onClick={clearSubmit} className='sign-up-btn'> Sign out</button>
+                </div>
+            )}
         </div>
     );
 };

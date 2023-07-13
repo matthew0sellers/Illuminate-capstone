@@ -19,7 +19,6 @@ const Header = () => {
                 <Link to="/ProfScreen">
                     <button className='nav_btn'>Profile</button>
                 </Link>
-
             </nav>
         </header>
     );
