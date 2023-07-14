@@ -17,15 +17,15 @@ app.get('/', (request, response) => {
 
 // app.get('/users/:id', db.getUserById)
 
-// app.get('/disp/:state', db.getUserByState)
-
-// app.get('/disp/:email', db.getUserByEmail)
-
-// app.get('/disp-card', db.getDispCard)
+app.post('/user-sign-up', db.addUser);
 
 app.post('/disp-card-n', db.addDispCard);
 
-app.post('/user-sign-up', db.addDispCard);
+app.get('/disp-card/data', db.getDispCard)
+
+// app.get('/disp/:state', db.getUserByState)
+
+// app.get('/disp/:email', db.getUserByEmail)
 
 // app.delete('/disp-card/:id', db.deleteDispCard);
 

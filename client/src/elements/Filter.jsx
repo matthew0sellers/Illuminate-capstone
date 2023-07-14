@@ -22,17 +22,6 @@ const Filter = () => {
     console.log(selectedProf)
   };
 
-  // const fetchDataByState = () => {
-  //   axios.get(`/disp/${state}`)
-  //     .then(response => {
-  //       const filteredData = response.data;
-  //       console.log(filteredData);
-  //     })
-  //     .catch(error => {
-  //       console.error('Error retrieving data:', error);
-  //     });
-  // };
-
   return (
     <div className='searchCont'>
       <select name='state' value={state} onChange={handleStateChange}>

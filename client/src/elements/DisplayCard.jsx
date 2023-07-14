@@ -3,26 +3,19 @@ import axios from "axios";
 import styles from './DisplayCard.css'
 
 const DisplayCard = () => {
-  const [cardData, setCardData] = useState([]);
+  const [cardData, setCardData] = useState(['']);
   const [isOpen, setIsOpen] = useState(false);
 
-  const [FirstName, Profession, _State] = cardData[0]
+  const {firstName, profession, state} = cardData
 
-  // const fetchDispCard = () => {
-  //   axios.get(`/disp-card/data`)
-  //     .then(response => {
-  //       const data = response.data;
-  //       setCardData(data);
-  //     })
-  //     .catch(error => {
-  //       console.error('Error retrieving data:', error);
-  //     });
-  // };
-
-  // useEffect(() => {
-  //   fetchDispCard();
-  // }, [])
-
+    axios.get(`/disp-card/data`)
+      .then(response => {
+        const {firstName, profession, state} = response.data
+        console.log(firstName, profession, state)
+      })
+      .catch(error => {
+        console.error('Error retrieving data:', error);
+      });
 
 
   const toggleDropdown = () => {
@@ -31,12 +24,12 @@ const DisplayCard = () => {
 
   return (
     <div className='dispContainer' onClick={toggleDropdown}>
-      <h4>{FirstName}</h4>
+      <h4>{firstName}</h4>
       <img src="https://iso.500px.com/wp-content/uploads/2015/03/business_cover.jpeg" />
       {isOpen && (
         <div className='dropdown'>
-          <p>Profession:{Profession} </p>
-          <p>State: {_State}</p>
+          <p>Profession:{profession} </p>
+          <p>State: {state}</p>
           <button>View Profile</button>
         </div>
       )}

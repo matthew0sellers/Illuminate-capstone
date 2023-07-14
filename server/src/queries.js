@@ -40,11 +40,12 @@ const addUser = (request, response) => {
 
 const getDispCard = (request, response) => {
 
-  pool.query("SELECT firstname, profession, _state FROM dispCard ORDER BY RANDOM() LIMIT 1", (error, results) => {
+  pool.query("SELECT firstname, profession, _state FROM dispCard ORDER BY RANDOM() LIMIT 1", 
+  (error, results) => {
     if (error) {
       throw error;
     }
-    response.status(200).json(results.rows);
+    response.status(200).send(results.rows);
   });
 };
 
