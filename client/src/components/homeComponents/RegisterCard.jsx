@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { response } from 'express';
 
 
 const SignUpCard = () => {
@@ -18,7 +17,7 @@ const SignUpCard = () => {
             lastName,
         }
 
-        axios.post('/user-sign-up', newUser)
+        axios.post('http://localhost:3002/user-sign-up', newUser)
             .then(response => {
                 console.log(response.data);
             })
