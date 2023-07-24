@@ -10,10 +10,9 @@ const ProfScreen = () => {
     const [state, setState] = useState('');
     const [submittedCard, setSubmittedCard] = useState(null);
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
+    const handleSubmit = (e) => {
+        e.preventDefault();
 
-        // Create a new dispCard object
         const newDispCard = {
             firstname,
             profession,
@@ -22,14 +21,13 @@ const ProfScreen = () => {
             state
         };
 
-        // Send the POST request to the server
-        axios.post('/disp-card-n', newDispCard)
-            .then(response => {
+        axios
+            .post('http://localhost:3002/disp-card-n', newDispCard)
+            .then((response) => {
                 console.log(response.data);
-                setSubmittedCard(response.data);
-            })  
-            .catch(error => {
-                console.error(error);
+            })
+            .catch((error) => {
+                console.error('Error sending data:', error);
             });
 
     };

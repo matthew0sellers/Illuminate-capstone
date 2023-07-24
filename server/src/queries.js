@@ -27,7 +27,7 @@ const addUser = (request, response) => {
   const { email, password, firstname, lastname } = request.body;
 
   pool.query(
-    'INSERT INTO dispCard (email, password, firstname, lastname) VALUES ($1, $2, $3, $4, $5)',
+    'INSERT INTO users (email, password, firstname, lastname) VALUES ($1, $2, $3, $4)',
     [email, password, firstname, lastname],
     (error, results) => {
       if (error) {
@@ -45,7 +45,7 @@ const getDispCard = (request, response) => {
     if (error) {
       throw error;
     }
-    response.status(200).send(results.rows);
+    response.status(200).send(results.rows[0]);
   });
 };
 

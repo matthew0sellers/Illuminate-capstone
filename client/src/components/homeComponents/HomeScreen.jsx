@@ -18,7 +18,7 @@ const HomeScreen = () => {
                 professionals can find other
                 skilled individuals, who share
                 similar goals and passions.
-                We hope we can help facilitate
+                We hope to help facilitate
                 collaboration.</p>
                 <img
                     src='https://cdn.vectorstock.com/i/1000x1000/17/52/professional-workers-different-jobs-professionals-vector-31651752.webp'

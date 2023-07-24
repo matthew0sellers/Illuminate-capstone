@@ -1,46 +1,49 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 
 
 const SignUpCard = () => {
     const [email, setEmail] = useState('');
-    const [pass, setPass] = useState('');
+    const [password, setPass] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [isSignedIn, setIsSignedIn] = useState(false)
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        
         const newUser = {
             email,
-            pass,
+            password,
             firstName,
             lastName,
         }
 
-        axios.post('http://localhost:3002/user-sign-up', newUser)
-            .then(response => {
+        axios
+            .post('http://localhost:3002/user-sign-up', newUser)
+            .then((response) => {
                 console.log(response.data);
+                toggleSignIn();
             })
-
-        const toggleSignIn = (e) => {
-            setIsSignedIn(!isSignedIn)
-        }
-
-        toggleSignIn()
+            .catch((error) => {
+                console.error('Error sending data:', error);
+            });
     }
 
-    const clearSubmit = (e) => {
-        const toggleSignIn = (e) => {
-            setIsSignedIn(!isSignedIn)
 
-            setEmail('');
-            setPass('');
-            setFirstName('');
-            setLastName('');
-        }
+    const toggleSignIn = () => {
+        setIsSignedIn(!isSignedIn);
+    };
 
-        toggleSignIn()
-    }
+    const clearSubmit = () => {
+
+        setEmail('');
+        setPass('');
+        setFirstName('');
+        setLastName('');
+        toggleSignIn();
+    };
+
 
     return (
         <div className='seperate'>
@@ -48,7 +51,7 @@ const SignUpCard = () => {
             {!isSignedIn && (
                 <div>
                     <input type="text" placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)} />
-                    <input type="text" placeholder='Password' value={pass} onChange={(e) => setPass(e.target.value)} />
+                    <input type="text" placeholder='Password' value={password} onChange={(e) => setPass(e.target.value)} />
                     <input type="text" placeholder='First Name' value={firstName} onChange={(e) => setFirstName(e.target.value)} />
                     <input type="text" placeholder='Last Name' value={lastName} onChange={(e) => setLastName(e.target.value)} />
 
